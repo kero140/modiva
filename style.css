@@ -229,3 +229,5 @@ html.dk .th button{opacity:1;background:#fff}html.dk .th button:not(.on){opacity
 .badge,.bd{letter-spacing:.3px}
 .cat span{border-radius:999px;padding:10px 16px;inset-inline:14px;bottom:14px}
 html,body{overflow-x:clip}
+
+.em.soon{padding:56px 16px}.em.soon b{display:block;font-size:20px;color:var(--ink,#1a1a1a);margin-bottom:8px}.em.soon p{margin:0 auto 18px;max-width:420px}.soonb{display:inline-block;background:#1a1a1a;color:#fff;border-radius:999px;padding:12px 24px;text-decoration:none;font-weight:600}
