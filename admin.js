@@ -139,11 +139,11 @@ async function persist(E,draft){
     const files=E.imgs.map(m=>m.k==='file'?m:null);
     let gal=E.imgs.map(m=>m.k==='file'?m.full:m.k==='url'?m.url:m.name+'.jpg');
     let main;const f0=E.imgs[0];
-    if(!f0)main='';else if(f0.k==='file')main=await shrinkData(f0.full,600,.72);else if(f0.k==='url')main=f0.url;else main=f0.name;
+    if(!f0)main='';else if(f0.k==='file')main=await shrinkData(f0.full,500,.68);else if(f0.k==='url')main=f0.url;else main=f0.name;
     let tot=gal.filter(x=>/^data:/.test(x)).reduce((a,x)=>a+x.length,0);
     for(let q=.7;tot>880000&&q>.35;q-=.1){gal=await Promise.all(gal.map(x=>/^data:/.test(x)?shrinkData(x,900,q):x));tot=gal.filter(x=>/^data:/.test(x)).reduce((a,x)=>a+x.length,0)}
     if(tot>900000)throw new Error('الصور كبيرة. قلّل عددها.');
-    const colors=await Promise.all(E.colors.map(async c=>{const o={h:c.h,a:c.a.trim(),e:(c.e||'').trim()||c.a.trim()};if(c.i)o.i=/^data:/.test(c.i)?await shrinkData(c.i,480,.7):c.i;return o}));
+    const colors=await Promise.all(E.colors.map(async c=>{const o={h:c.h,a:c.a.trim(),e:(c.e||'').trim()||c.a.trim()};if(c.i)o.i=/^data:/.test(c.i)?await shrinkData(c.i,400,.66):c.i;return o}));
     const p={id:E.id,ar:E.ar.trim(),en:(E.en||'').trim()||E.ar.trim(),cat:E.cat,tag:E.tag||'',featured:E.featured?1:0,price:+E.price||0,sizes:E.sizes,out:E.out.filter(s=>E.sizes.includes(s)),img:main,colors,pair:E.pair||[],order:E.order||0,sample:!!E.sample,hidden:!!E.hidden,draft:!!draft,trash:false,ng:gal.length>1?gal.length:0};
     if(+E.old>0)p.old=+E.old;
     if(+E.discPct>0)p.disc={pct:Math.min(90,+E.discPct),end:E.discEnd?new Date(E.discEnd).toISOString():''};
@@ -283,13 +283,13 @@ document.addEventListener('click',async e=>{
 });
 async function addFiles(files){
   const E=S.ed;if(!E)return;busy(true,'جاري تجهيز الصور...');
-  try{for(const f of files){if(E.imgs.length>=5){toast('أقصى حاجة 5 صور',true);break}if(!/^image\//.test(f.type))continue;E.imgs.push({k:'file',full:await shrink(f,1000,.78)})}}catch(e){toast('الصورة دي مش مقبولة',true)}
+  try{for(const f of files){if(E.imgs.length>=5){toast('أقصى حاجة 5 صور',true);break}if(!/^image\//.test(f.type))continue;E.imgs.push({k:'file',full:await shrink(f,800,.72)})}}catch(e){toast('الصورة دي مش مقبولة',true)}
   busy(false);drawEditor();
 }
 document.addEventListener('change',async e=>{
   const t=e.target;
   if(t.id==='ifile'){await addFiles([...t.files]);t.value='';return}
-  if(t.id==='cfile'){const f=t.files[0];if(f&&S.ed){syncEditor();S.ed.colors[S.cpick].i=await shrink(f,480,.7);drawEditor()}t.value='';return}
+  if(t.id==='cfile'){const f=t.files[0];if(f&&S.ed){syncEditor();S.ed.colors[S.cpick].i=await shrink(f,400,.66);drawEditor()}t.value='';return}
   if(t.id==='herofile'){const f=t.files[0];if(f){busy(true,'جاري تجهيز الصورة...');S.heroNew=await shrink(f,1600,.7);$('#heroprev').src=S.heroNew;busy(false);toast('اضغط حفظ الإعدادات')}t.value='';return}
   if(t.id==='impfile'){if(t.files[0])doImport(t.files[0]);t.value='';return}
   if(t.id==='fc'){S.f.cat=t.value;render();return}

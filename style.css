@@ -231,3 +231,5 @@ html.dk .th button{opacity:1;background:#fff}html.dk .th button:not(.on){opacity
 html,body{overflow-x:clip}
 
 .em.soon{padding:56px 16px}.em.soon b{display:block;font-size:20px;color:var(--ink,#1a1a1a);margin-bottom:8px}.em.soon p{margin:0 auto 18px;max-width:420px}.soonb{display:inline-block;background:#1a1a1a;color:#fff;border-radius:999px;padding:12px 24px;text-decoration:none;font-weight:600}
+.md[data-re] .mb,.md[data-re] .ov{animation:none!important}.mg{position:relative}.cbd{position:absolute;inset-inline-start:12px;bottom:12px;background:#fffd;color:#1a1a1a;padding:5px 12px;border-radius:999px;font-size:13px;box-shadow:0 1px 4px #0002;pointer-events:none}html.dk .cbd{background:#18181acc;color:#fff}.ss button.on{background:var(--ink);color:var(--bg)}
+.sk{aspect-ratio:3/4;border-radius:6px;background:linear-gradient(100deg,#eee 30%,#f7f7f7 50%,#eee 70%);background-size:200% 100%;animation:skm 1.2s linear infinite}html.dk .sk{background:linear-gradient(100deg,#222 30%,#2a2a2c 50%,#222 70%);background-size:200% 100%}@keyframes skm{to{background-position:-200% 0}}@media(prefers-reduced-motion:reduce){.sk{animation:none}}
